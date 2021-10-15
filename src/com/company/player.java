@@ -74,7 +74,7 @@ public class player {
 
     // Gets a player's hand total
     public int getTotal() {
-        return hand.calculateTotal();
+        return hand.Total();
     }
 
     // Gets a player's bet
