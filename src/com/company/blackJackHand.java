@@ -25,9 +25,11 @@ public class blackJackHand implements hand {
         return total;
     }
 
+
     public String toString(){
         return this.toString(false, false);
     }
+
 
     public String toString(boolean isDealer, boolean hideHoleCard){
         StringBuilder str = new StringBuilder();

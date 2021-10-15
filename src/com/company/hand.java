@@ -6,7 +6,7 @@ public interface hand
 
     String toString();
 
-    String toString(boolean isDealer, boolean hideHoleCard);
+    String toString(boolean a, boolean b);
 
      void addCard(Card card);
 
