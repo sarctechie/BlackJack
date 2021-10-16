@@ -9,7 +9,7 @@ public class TriantaEna implements cardGame{
 	private int userET; 
 	private Player[] regularplayer;
 	private Deck deckET;
-	private Dealer dealerET = new Dealer();
+	private Player dealerET = new Player();
 	public static final String ANSI_YELLOW = "\u001B[33m";
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_BLUE = "\u001B[36m";
@@ -18,6 +18,7 @@ public class TriantaEna implements cardGame{
 
 	// Starts game and displays the rules
 	public void startGame(){
+		
 		String names;
 		System.out.println(ANSI_YELLOW+"Welcome to the game of Trienta Ena! Here are the rules"+ANSI_RESET);
 		System.out.println("");
@@ -45,7 +46,9 @@ public class TriantaEna implements cardGame{
 			regularplayer[i] = new Player();
 			regularplayer[i].setName(names);
 		}
+		dealerET.setMoney(3*(regularplayer[0].getMoney()));
 	}
+	
 	
 	// Shuffles the deck
 	public void shuffle(){
@@ -108,6 +111,9 @@ public class TriantaEna implements cardGame{
 				if (regularplayer[i].getTotal() == 31 ) {
 					System.out.println(regularplayer[i].getName() + " has Trianta Ena!");
 					regularplayer[i].blackjackBet();
+					Player t=dealerET;
+					dealerET= regularplayer[i];
+					regularplayer[i]=t;
 				}
 			}
 		}		
@@ -146,7 +152,7 @@ public class TriantaEna implements cardGame{
 			}
 		}
 		if (isSomePlayerStillInTheGame) {
-			dealerET.dealerPlay(deckET);
+			dealerET.playDealerET(deckET);
 		}
 	}
 	
@@ -156,13 +162,13 @@ public class TriantaEna implements cardGame{
 
 		for (int i = 0; i < userET; i++) {
 			if (regularplayer[i].getBet() > 0 ) {
-				if( regularplayer[i].getTotal() > 21 ) {
+				if( regularplayer[i].Total() > 21 ) {
 					System.out.println(regularplayer[i].getName() + " has busted");
 					regularplayer[i].playerBust();
-				} else if ( regularplayer[i].getTotal() == dealerET.Total() ) {
+				} else if ( regularplayer[i].Total() == dealerET.Total() ) {
 					System.out.println(regularplayer[i].getName() + " has pushed");
 					regularplayer[i].push();
-				} else if ( regularplayer[i].getTotal() < dealerET.Total() && dealerET.Total() <= 21 ) {
+				} else if ( regularplayer[i].Total() < dealerET.Total() && dealerET.getTotal() <= 21 ) {
 					System.out.println(regularplayer[i].getName() + " has lost");
 					regularplayer[i].loss();
 				} else if (regularplayer[i].getTotal() == 21) {
@@ -209,7 +215,7 @@ public class TriantaEna implements cardGame{
 		for (int i = 0; i < userET; i++) {
 			regularplayer[i].resetPlayerHand();
 		}
-		dealerET.resetHand();
+		dealerET.resetPlayerHand();
 
 	}
 	
@@ -232,6 +238,7 @@ public class TriantaEna implements cardGame{
 			{
 				playState = false;
 			}
+
 		}
 		return playState;
 	}

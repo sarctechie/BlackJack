@@ -5,7 +5,10 @@ public class Player {
     private String playerName;
     private int bet;
     private int money;
-    private blackJackHand hand;
+    
+
+
+	private blackJackHand hand;
 
     // Constructor function
     public Player() {
@@ -99,4 +102,46 @@ public class Player {
         hand.resetHand();
     }
 
-}
+	public void setMoney(int money) {
+		this.money = money;
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean isET() {
+		if (hand.Total() == 31){
+            return true;
+        } else {
+            return false;
+        }
+	}
+
+	public boolean check() {
+		return hand.check();
+	}
+
+	public void playDealerET(Deck deck) {
+		// TODO Auto-generated method stub
+		 System.out.println();
+	        while (hand.Total() <= 16) {
+	            System.out.println("Dealer has " + hand.Total()+ " and hits");
+	            hand.addCard(deck.nextCard());
+	            System.out.println("Dealer " + this.getHandString(true, false));
+	        }
+	        if ( hand.Total() > 21) {
+	            System.out.println("Dealer busts. " + this.getHandString(true, false));
+	        } else {
+	            System.out.println("Dealer stands. " + this.getHandString(true, false));
+	        }
+	    }
+	public String getHandString(boolean isDealer, boolean hideHoleCard ) {
+        String str = "Cards:" + hand.toString(isDealer, hideHoleCard);
+
+        return str;
+    }
+    public int Total() {
+        return hand.Total();
+    }
+	}
+
+
